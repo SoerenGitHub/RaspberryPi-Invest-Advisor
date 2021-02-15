@@ -10,11 +10,11 @@ class Extrema:
         self.__arr = pd.Series(arr)   
 
     def determine_max(self):
-        extrema_max = argrelextrema(self.__arr.values, np.greater, order=5)[0]
+        extrema_max = argrelextrema(self.__arr.values, np.greater, order=1)[0]
         return self.__arr.iloc[extrema_max]
 
     def determine_min(self):
-        extrema_min = argrelextrema(self.__arr.values, np.less, order=5)[0]
+        extrema_min = argrelextrema(self.__arr.values, np.less, order=1)[0]
         return self.__arr.iloc[extrema_min]        
 
     def determine_global_max(self):

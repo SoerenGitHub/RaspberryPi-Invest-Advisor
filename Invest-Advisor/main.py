@@ -5,7 +5,6 @@ from utils.stock import Stock
 from utils.api import Api
 from utils.graph import Graph
 from analysis.extrema import Extrema
-from analysis.supportLine import supportLine
 
 account = MockAccount()
 depot = Depot()
@@ -19,5 +18,4 @@ microsoft = Stock('Microsoft', api.request_history('RDS-B'))
 watchlist.add_stock(microsoft)
 
 extrema_microsoft = Extrema(microsoft.get_history()['Close'])
-supportLine_microsoft = supportLine(extrema_microsoft).determine()
 
