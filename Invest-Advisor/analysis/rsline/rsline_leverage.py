@@ -14,10 +14,8 @@ class RSLineLeverage:
 
 
     def __determine_meaningfulness(self) -> bool:
-        return (
-            (self.__analysis.get_price() != 0) &
-            
-        )
+        return (self.__analysis.get_price() != 0) & (self.__analysis.get_last_peek() )
+        
     
     def __determine_decision(self):
         if(self.__analysis.is_resistance()):

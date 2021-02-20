@@ -1,3 +1,4 @@
+from ki.predicting.lstmprediction_KI import LSTMPredictionKI
 from analysis.rsline.rsline_leverage import RSLineLeverage
 from analysis.rsline.rsline_simulation import RSLineSimulation
 from utils.mail import Mail
@@ -13,4 +14,5 @@ from analysis.rsline.rsline_analysis import RSLineAnalysis
 api = Api()
 
 stock = Stock('Microsoft', api.request_history('DAI.DE'))
-rsline_simulation = RSLineSimulation(stock.get_history()['Close'], 1000, 4, 4, 30, 20)
+#rsline_simulation = RSLineSimulation(stock.get_history()['Close'], 1000, 4, 4, 30, 20)
+prediction = LSTMPredictionKI(stock, 50)

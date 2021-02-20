@@ -5,9 +5,10 @@ class Stock:
     __buyValue = 0
     __history = []
 
-    def __init__(self, name, history):
+    def __init__(self, name, symbol, history):
         self.__name = name
         self.__history = history
+        self.__symbol = symbol
 
     def set_currentValue(self, value):
         self.__currentValue = value
@@ -20,6 +21,9 @@ class Stock:
 
     def get_name(self):
         return self.__name
+
+    def get_symbol(self):
+        return self.__symbol
 
     def get_history(self):
         return self.__history
