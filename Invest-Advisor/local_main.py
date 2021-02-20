@@ -1,3 +1,5 @@
+from analysis.rsline.rsline_leverage import RSLineLeverage
+from analysis.rsline.rsline_simulation import RSLineSimulation
 from utils.mail import Mail
 from utils.mockAccount import MockAccount
 from utils.depot import Depot
@@ -5,25 +7,10 @@ from utils.watchlist import Watchlist
 from utils.stock import Stock
 from utils.api import Api
 from utils.graph import Graph
-from analysis.extrema import Extrema
+from analysis.extrema.extrema import Extrema
+from analysis.rsline.rsline_analysis import RSLineAnalysis
 
-account = MockAccount()
-depot = Depot()
-watchlist = Watchlist()
 api = Api()
-mail = Mail(['soerens@hotmail.de'])
 
-mail.send()
-
-account.add(10000)
-
-microsoft = Stock('Microsoft', api.request_history('RDS-B'))
-
-watchlist.add_stock(microsoft)
-
-extrema_microsoft = Extrema(microsoft.get_history()['Close'])
-
-graph_microsoft = Graph(microsoft.get_history()['Close'], microsoft.get_name())
-graph_microsoft.draw_down_arrow(extrema_microsoft.determine_max())
-graph_microsoft.draw_up_arrow(extrema_microsoft.determine_min())
-graph_microsoft.show()
+stock = Stock('Microsoft', api.request_history('DAI.DE'))
+rsline_simulation = RSLineSimulation(stock.get_history()['Close'], 1000, 4, 4, 30, 20)

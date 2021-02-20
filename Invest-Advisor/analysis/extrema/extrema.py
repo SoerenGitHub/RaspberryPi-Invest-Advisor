@@ -6,15 +6,16 @@ import pandas as pd
 class Extrema:
     __arr = []
 
-    def __init__(self, arr):
+    def __init__(self, arr, order):
         self.__arr = pd.Series(arr)   
+        self.__order = order
 
     def determine_max(self):
-        extrema_max = argrelextrema(self.__arr.values, np.greater, order=1)[0]
+        extrema_max = argrelextrema(self.__arr.values, np.greater, order=self.__order)[0]
         return self.__arr.iloc[extrema_max]
 
     def determine_min(self):
-        extrema_min = argrelextrema(self.__arr.values, np.less, order=1)[0]
+        extrema_min = argrelextrema(self.__arr.values, np.less, order=self.__order)[0]
         return self.__arr.iloc[extrema_min]        
 
     def determine_global_max(self):
