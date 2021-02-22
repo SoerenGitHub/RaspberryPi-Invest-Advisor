@@ -4,7 +4,6 @@ class RSLineAnalysis:
 
     __max_counter = 0
     __min_counter = 0
-    __peeks = []
     __price = 0
     __resistance = False
 
@@ -24,22 +23,10 @@ class RSLineAnalysis:
 
 
     def determine_resistance_or_support(self):
-        resistance_clarity = 0
-        support_clarity = 0
-        #durchlaufe die letzten drei Maxima Preise
-        for price in pd.Series(self.__ext.determine_max())[-5:].values:
-            #wenn letzte Maxima unter Linie
-            if(price < self.__price+self.__deviation):
-                #Dann füge Wert der Liste hinzu
-                resistance_clarity += 1
-        #durchlaufe die letzten drei Minima Preise
-        for price in pd.Series(self.__ext.determine_min())[-5:].values:
-            #Wenn letzte Minima über Linie
-            if(price > self.__price-self.__deviation):
-                # dann ist es eine Unterstützungslinie und keine Wiederstandslinie
-                support_clarity += 1
-        #Die höchste Rate entscheidet
-        self.__resistance = resistance_clarity > support_clarity
+        if(self.__price < self.__current_price):
+            self.__resistance = False
+        else:
+            self.__resistance = True
     
     def __determine(self):
         pointer = 0
@@ -111,6 +98,3 @@ class RSLineAnalysis:
 
     def is_resistance(self):
         return self.__resistance
-
-    def get_last_peek(self):
-        return self.__last_peek
