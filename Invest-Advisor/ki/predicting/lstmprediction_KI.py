@@ -10,14 +10,16 @@ plt.style.use('fivethirtyeight')
 
 
 class LSTMPredictionKI:
+    __model = None
+    __scaler = None
 
     def __init__(self, stock, predicting_days) -> None:
         self.__predicting_days = predicting_days
         self.__stock = stock
-        self.__predict()
+        self.__train()
 
-    def __predict(self):
-        data=pd.Series(self.__stock.get_history()['Close'])
+    def __train(self):
+        data=self.__stock.get_history().filter(['Close'])
         dataset = data.values
         train_data_len = math.ceil( len(dataset) * .8 )
         scaler = MinMaxScaler(feature_range=(0,1))
@@ -51,29 +53,19 @@ class LSTMPredictionKI:
         predictions = model.predict(x_test)
         predictions = scaler.inverse_transform(predictions)
 
-        rmse = np.sqrt(np.mean(predictions - y_test)**2)
         train = data[:train_data_len]
         valid = data[train_data_len:]
-        valid =['Predictions'] = predictions
+        valid['Predictions'] = predictions
 
-
-        plt.figure(figsize=(16,8))
-        plt.title('Model')
-        plt.xlabel('Date', fontsize=18)
-        plt.ylabel('Close Price in USD ($)', fontsize=18)
-        plt.plot(train['Close'])
-        plt.plot(valid['Close', 'Predictions'])
-        plt.legend(['Train', 'Val', 'Predictions'], loc='lower right')
-        #plt.show()
-
-        quote = self.__stock.get_history()['Close']
-        new_df = quote.filter(['Close'])
-        last_x_days = new_df[-60:].values
+    def __predict(self):
+        new_df = self.__stock.get_history().filter(['Close'])
+        last_x_days = new_df[-self.__predicting_days:].values
         last_x_days_scaled = scaler.transform(last_x_days)
         x_test = []
         x_test.append(last_x_days_scaled)
         x_test = np.array(x_test)
-        x_test = np.array(x_test, (x_test.shape[0], x_test.shape[1], 1))
+        x_test = np.reshape(x_test, (x_test.shape[0], x_test.shape[1], 1))
         pred_price = model.predict(x_test)
         pred_price = scaler.inverse_transform(pred_price)
-        
+        print(pred_price)
+       
