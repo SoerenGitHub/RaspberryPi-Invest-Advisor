@@ -17,6 +17,7 @@ class LSTMPredictionKI:
         self.__predicting_days = predicting_days
         self.__stock = stock
         self.__train()
+        self.__predict()
 
     def __train(self):
         data=self.__stock.get_history().filter(['Close'])

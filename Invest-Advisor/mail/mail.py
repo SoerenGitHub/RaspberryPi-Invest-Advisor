@@ -9,9 +9,8 @@ class Mail:
     __email = 'dailyinvestadvisor@gmail.com'
 
     __subject = 'Tägliche Aktien-Analyse'
-    __body = ''
     __msg = MIMEMultipart('alternative')
-    __html = '<html><body>'+__body+'</body></html>'
+    __html = 'Nothing'
 
     def __init__(self, receiverMails) -> None:
         self.__receiverMails = receiverMails
@@ -37,6 +36,7 @@ class Mail:
             self.__msg['To'] = receiverMail
             smtp.sendmail(self.__msg['From'],self.__msg['To'],self.__msg.as_string())
         smtp.quit()
+        print('send')
 
   
     #in HTML: <img src="cid:logo.png"/> oder <img src="cid:logo"/>
@@ -46,5 +46,5 @@ class Mail:
             img.add_header("Content-ID", "<{}>".format(imageName))
             self.__msg.attach(img)
     
-    def addHtmlPart(self, htmlPart):
-        self.__body = self.__body + htmlPart
+    def addHtml(self, html):
+        self.__html = html

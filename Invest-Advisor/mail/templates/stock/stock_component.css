@@ -1,0 +1,27 @@
+            .stock {
+                list-style-type: none;
+                min-height: 200px;
+                background: white;
+                margin: 0px 0px 0px 10px!important;
+                padding: 10px;
+            }
+
+            #stock-name {
+                font-size: 1.1em;
+                margin: 0;
+                padding: 0;
+            }
+
+            #stock-symbol {
+                font-size: 0.7em;
+                padding: 0;
+                margin: 0;
+                font-weight: bold;
+                color: #b0b0b0;
+            }
+
+            #stock-index {
+                width: 100%;
+                height: auto;
+                margin-top: 6px;
+            }
