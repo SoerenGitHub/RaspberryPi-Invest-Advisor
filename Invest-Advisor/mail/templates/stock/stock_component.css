@@ -2,7 +2,7 @@
                 list-style-type: none;
                 min-height: 200px;
                 background: white;
-                margin: 0px 0px 0px 10px!important;
+                margin: 10px 0px 0px 0px!important;
                 padding: 10px;
             }
 
@@ -17,7 +17,8 @@
                 padding: 0;
                 margin: 0;
                 font-weight: bold;
-                color: #b0b0b0;
+                color: #b0b0b0!important;
+                text-decoration: none!important;
             }
 
             #stock-index {

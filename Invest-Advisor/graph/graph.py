@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import pandas as pd
-
+import os
 
 class Graph:
 
@@ -21,3 +21,15 @@ class Graph:
 
     def show(self):
         plt.show()
+
+    def save(self, name, date):
+        self.__create_folder('./temp/'+date+'/')
+        plt.savefig('./temp/'+date+'/'+name+'.png')
+        return './temp/'+date+'/'+name+'.png'
+
+    def __create_folder(self, directory):
+        try:
+            if not os.path.exists(directory):
+                os.makedirs(directory)
+        except OSError:
+            print ('Error: Creating directory. ' +  directory)

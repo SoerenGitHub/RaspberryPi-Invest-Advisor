@@ -19,10 +19,10 @@ class RSLineAnalysis:
         self.__current_price = current_price
         self.__determine()
         if(self.__price > 0):
-            self.determine_resistance_or_support()
+            self.__determine_resistance_or_support()
 
 
-    def determine_resistance_or_support(self):
+    def __determine_resistance_or_support(self):
         if(self.__price < self.__current_price):
             self.__resistance = False
         else:

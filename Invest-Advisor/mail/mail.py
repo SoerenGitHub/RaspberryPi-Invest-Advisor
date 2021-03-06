@@ -9,8 +9,10 @@ class Mail:
     __email = 'dailyinvestadvisor@gmail.com'
 
     __subject = 'Tägliche Aktien-Analyse'
-    __msg = MIMEMultipart('alternative')
+    __msg = MIMEMultipart('related')
     __html = 'Nothing'
+
+    __images = []
 
     def __init__(self, receiverMails) -> None:
         self.__receiverMails = receiverMails
@@ -27,6 +29,9 @@ class Mail:
 
         self.__msg.attach(MIMEText(self.__html, "html"))
 
+        for img in self.__images:
+            self.__msg.attach(img)
+
         base64_bytes = self.__password.encode('ascii')
         password_bytes = base64.b64decode(base64_bytes)
         password = password_bytes.decode('ascii')
@@ -39,12 +44,13 @@ class Mail:
         print('send')
 
   
-    #in HTML: <img src="cid:logo.png"/> oder <img src="cid:logo"/>
+    #in HTML: <img src="cid:logo"/>
     def addImage(self, image, imageName):
-         with open(image, "rb") as fp:
-            img = MIMEImage(fp.read())
-            img.add_header("Content-ID", "<{}>".format(imageName))
-            self.__msg.attach(img)
+        fp = open(image, 'rb')
+        msgImage = MIMEImage(fp.read())
+        fp.close()
+        msgImage.add_header('Content-ID', '<{name}>'.format(name=imageName))
+        self.__images.append(msgImage)
     
     def addHtml(self, html):
         self.__html = html
