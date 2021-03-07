@@ -1,0 +1,2 @@
+from presentation.templates.root.root_component import RootComponent
+from presentation.templates.stock.stock_component import StockComponent
