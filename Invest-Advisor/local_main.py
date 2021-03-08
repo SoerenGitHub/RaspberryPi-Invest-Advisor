@@ -14,8 +14,12 @@ for mail in mails:
     mail = Mail(mail)
 
     stocks = [
-        Stock('TUI', 'TUI1.DE').create_component(mail), 
-        Stock('Microsoft', 'MSFT').create_component(mail)
+        Stock('BYD', 'BY6.F').create_component(mail), 
+        Stock('Microsoft', 'MSFT.MI').create_component(mail),
+        Stock('Aqua Metals', 'AQK.F').create_component(mail),
+        Stock('Apple', 'APC.F').create_component(mail),
+        Stock('AMS', 'DQW1.DE').create_component(mail),
+        Stock('Square', 'SQ3.F').create_component(mail),
     ]
 
     root_component = RootComponent('Aktien Chart-Analyse', str(datetime.date.today()), 'Alpha 1.0', stocks)
