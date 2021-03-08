@@ -49,7 +49,7 @@ class Stock:
     def create_component(self, mail):
         graph = Graph(self.__history['Close'], self.__symbol)
         extrema = Extrema(self.__history['Close'], 1)
-        rsline = RSLineAnalysis(extrema, 6, 6, 15, self.__history['Close'].values[-1])
+        rsline = RSLineAnalysis(extrema, 4, 6, 20, self.__history['Close'].values[-1])
         if(rsline.get_price() != 0):
             graph.draw_hline(rsline.get_price())
         today = date.today()
