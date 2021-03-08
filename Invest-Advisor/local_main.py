@@ -9,7 +9,6 @@ mails = [
     'soerens@hotmail.de'
 ]
 
-Timer().set_timer(19, 18)
 
 for mail in mails:
     mail = Mail(mail)

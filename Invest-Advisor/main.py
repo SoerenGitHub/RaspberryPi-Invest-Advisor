@@ -5,7 +5,7 @@ from utils import Timer
 import datetime
 
 mails = [
-    'schuba.s_dev@outlook.com',
+    'Arnes-mail@web.de',
     'soerens@hotmail.de'
 ]
 
@@ -17,8 +17,12 @@ while True:
         mail = Mail(mail)
 
         stocks = [
-            Stock('TUI', 'TUI1.DE').create_component(mail), 
-            Stock('Microsoft', 'MSFT').create_component(mail)
+            Stock('BYD', 'BY6.F').create_component(mail), 
+            Stock('Microsoft', 'MSFT.MI').create_component(mail),
+            Stock('Aqua Metals', 'AQK.F').create_component(mail),
+            Stock('Apple', 'APC.F').create_component(mail),
+            Stock('AMS', 'DQW1.DE').create_component(mail),
+            Stock('Square', 'SQ3.F').create_component(mail),
         ]
 
         root_component = RootComponent('Aktien Chart-Analyse', str(datetime.datetime.now()), 'Alpha 1.0', stocks)
