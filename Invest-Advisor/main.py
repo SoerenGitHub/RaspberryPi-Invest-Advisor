@@ -34,6 +34,6 @@ while True:
             Stock('Allianz', 'ALV.DE').create_component(mail),
         ]
 
-        root_component = RootComponent('Aktien Chart-Analyse', str(datetime.datetime.now()), 'Alpha 1.0', stocks)
+        root_component = RootComponent('Aktien Chart-Analyse', str(datetime.date.today()), 'Alpha 1.0', stocks)
         mail.addHtml(root_component.get_component())
         mail.send()
