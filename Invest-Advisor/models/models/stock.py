@@ -1,6 +1,7 @@
+from core.analysis.helper.simplifier import Simplifier
+from core.analysis.analysis import Analysis
 from data import Api
 from utils import Graph
-from core import RSLineAnalysis, PastIndex, Extrema
 from presentation import StockComponent
 from datetime import date
 
@@ -11,7 +12,6 @@ class Stock:
     __currentValue = 0
     __buyValue = 0
     __history = []
-    __has_analysis = False
 
     def __init__(self, name, symbol):
         self.__name = name
@@ -48,18 +48,21 @@ class Stock:
         self.__score += score
 
     def create_component(self, mail):
-        graph = Graph(self.__history['Close'], self.__symbol)
-        extrema = Extrema(self.__history['Close'], 1)
-        rsline = RSLineAnalysis(extrema, 4, 8, 20, self.__history['Close'].values[-1])
-        pastindex = PastIndex(self.__history['Close'], 5, 200, self.__history['Close'].values[-1])
-        if(rsline.get_price() != 0):
-            self.__has_analysis = True
-            graph.draw_hline(rsline.get_price())
+        graph = Graph(self.__history['Close'])
+        analysis = Analysis(self.__history)
         
-        graph.draw_line(pastindex.moving_average())
-        graph.draw_line(pastindex.expotential_moving_average())
+        analysis.analyse()
+        if analysis.has_analysis():
+            if analysis.get_rsline() is not None:
+                graph.draw_hline(analysis.get_rsline(), 'resistance/support')
+            if analysis.get_ema() is not None:
+                graph.draw_line(analysis.get_ema(), 'EMA')
+            if analysis.get_sma() is not None:
+                graph.draw_line(analysis.get_sma(), 'SMA')
 
-        today = date.today()
-        graph_img = graph.save(self.__symbol, str(today))
-        mail.addImage(graph_img, self.__symbol)
-        return StockComponent(self.__name, self.__symbol, 'cid:{symbol}'.format(symbol=self.__symbol))
+            today = date.today()
+            graph_img = graph.save(self.__symbol, str(today))
+            mail.addImage(graph_img, self.__symbol)
+            return StockComponent(self.__name, self.__symbol, 'cid:{symbol}'.format(symbol=self.__symbol))
+        else:
+            return None

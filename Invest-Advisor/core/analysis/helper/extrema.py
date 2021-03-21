@@ -1,4 +1,3 @@
-from statsmodels.tsa.holtwinters import SimpleExpSmoothing
 from scipy.signal import argrelextrema
 import numpy as np
 import pandas as pd

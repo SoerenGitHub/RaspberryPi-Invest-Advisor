@@ -4,8 +4,6 @@ class RSLineAnalysis:
 
     __max_counter = 0
     __min_counter = 0
-    __price = 0
-    __resistance = False
 
     def __init__(self, extrema, deviation, trigger_zone, trigger_peek, current_price):
         self.__ext = extrema
@@ -17,18 +15,8 @@ class RSLineAnalysis:
         self.__trigger_zone = (current_price / 100) * trigger_zone
 
         self.__current_price = current_price
-        self.__determine()
-        if(self.__price > 0):
-            self.__determine_resistance_or_support()
-
-
-    def __determine_resistance_or_support(self):
-        if(self.__price < self.__current_price):
-            self.__resistance = False
-        else:
-            self.__resistance = True
     
-    def __determine(self):
+    def rsline(self):
         pointer = 0
         #liste mit Minima und Maxima mit chronisch invertierter Reihenfolge
         extrema_list = pd.Series(self.__ext.determine_min()).append(self.__ext.determine_max())
@@ -85,16 +73,6 @@ class RSLineAnalysis:
                     self.__min_counter = 0
                     self.__max_counter = 0
         if(self.__min_counter+self.__max_counter >= 3):
-            self.__price = pointer
-
-    def get_max_count(self):
-        return self.__max_counter
-            
-    def get_min_count(self):
-        return self.__min_counter
-
-    def get_price(self):
-        return self.__price
-
-    def is_resistance(self):
-        return self.__resistance
+            return pointer
+        else:
+            return None

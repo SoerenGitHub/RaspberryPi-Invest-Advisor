@@ -12,7 +12,8 @@ class RootComponent:
         self.__version = version
         self.__set_style()
         for stock in stocks:
-            self.__stocks += stock.get_html()
+            if(stock is not None):
+                self.__stocks += stock.get_html()
 
     def __set_style(self):
         self.__style += open('./presentation/templates/root/root_component.css', 'r').read()

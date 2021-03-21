@@ -3,15 +3,21 @@ from core import Mail
 from presentation import  RootComponent
 from utils import Timer
 import datetime
+import os
 
 mails = [
     'Arnes-mail@web.de',
     'soerens@hotmail.de',
-    'hanna.schnell@gmx.de'
+    'hanna.schnell@gmx.de',
+    'johanneswitte@gmx.net',
+    'm.warneke17@gmx.de'
 ]
 
 while True:
 
+    if(datetime.date.day is 1):
+        os.remove('temp')
+        
     Timer().set_timer(7, 30)
 
     for mail in mails:

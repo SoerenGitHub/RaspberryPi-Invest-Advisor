@@ -26,7 +26,7 @@ for mail in mails:
         Stock('Ynvisible Interactive', '1XNA.F').create_component(mail),
         Stock('Texas Instruments', 'TII.F').create_component(mail),
         Stock('3D Systems', 'SYV.DE').create_component(mail),
-        #Stock('Unilever', 'UNA.AS').create_component(mail),
+        Stock('Unilever', 'UNA.AS').create_component(mail),
         Stock('Allianz', 'ALV.DE').create_component(mail),
     ]
 
