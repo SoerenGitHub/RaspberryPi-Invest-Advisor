@@ -2,7 +2,6 @@ import datetime
 from models import Stock
 from core import Mail
 from presentation import  RootComponent
-from utils import Timer
 
 mails = [
     'schuba.s_dev@outlook.com',
@@ -28,6 +27,9 @@ for mail in mails:
         Stock('3D Systems', 'SYV.DE').create_component(mail),
         Stock('Unilever', 'UNA.AS').create_component(mail),
         Stock('Allianz', 'ALV.DE').create_component(mail),
+        Stock('Aurora Cannabis', '21P1.F').create_component(mail),
+        Stock('Bayer', 'BAYN.DE').create_component(mail),
+        Stock('Encavis', 'ECV.DE').create_component(mail),
     ]
 
     root_component = RootComponent('Aktien Chart-Analyse', str(datetime.date.today()), 'Alpha 1.0', stocks)

@@ -4,7 +4,7 @@ import numpy as np
 class MovingAverage:
 
     def __init__(self, history, trigger_zone, past_duration, current_price) -> None:
-        self.__history = pd.Series(history)
+        self.__history = pd.Series(history['Close'])
         self.__past_duration = past_duration
         self.__trigger_zone = (current_price / 100) * trigger_zone
         self.__current_price = current_price

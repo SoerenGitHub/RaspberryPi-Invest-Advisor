@@ -6,7 +6,7 @@ class Extrema:
     __arr = []
 
     def __init__(self, arr, order):
-        self.__arr = pd.Series(arr)   
+        self.__arr = pd.Series(arr['Close'])   
         self.__order = order
 
     def determine_max(self):

@@ -48,7 +48,7 @@ class Stock:
         self.__score += score
 
     def create_component(self, mail):
-        graph = Graph(self.__history['Close'])
+        graph = Graph(self.__history['Close'], 200)
         analysis = Analysis(self.__history)
         
         analysis.analyse()
@@ -59,6 +59,9 @@ class Stock:
                 graph.draw_line(analysis.get_ema(), 'EMA')
             if analysis.get_sma() is not None:
                 graph.draw_line(analysis.get_sma(), 'SMA')
+            if(analysis.get_psar() is not None):
+                graph.draw_line(analysis.get_psar()['bull'], 'PSAR(bull)', 'dotted')
+                graph.draw_line(analysis.get_psar()['bear'], 'PSAR(bear)', 'dotted')
 
             today = date.today()
             graph_img = graph.save(self.__symbol, str(today))
