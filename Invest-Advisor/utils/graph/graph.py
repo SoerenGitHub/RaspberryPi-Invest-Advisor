@@ -7,8 +7,7 @@ class Graph:
     def __init__(self, arr, visibility_range = 0):
         self.__visibility_range = visibility_range
         plt.figure()
-        if(visibility_range != 0 and len(arr) >= 200):
-            print('jap')
+        if(visibility_range != 0 and len(arr) >= visibility_range):
             pd.Series(arr[-visibility_range:]).plot(figsize=(10,8), alpha=.3, label='Close-Price')
         else:
             pd.Series(arr).plot(figsize=(10,8), alpha=.3, label='Close-Price')
@@ -21,7 +20,7 @@ class Graph:
         arr.plot(style='.', lw=10, color='green', marker="^")
 
     def draw_line(self, arr, label, style = 'solid'):
-        if( self.__visibility_range != 0 and len(arr) >= 200):
+        if( self.__visibility_range != 0 and len(arr) >= self.__visibility_range):
             pd.Series(arr[-self.__visibility_range:]).plot(label=label, linestyle=style)
         else:
             pd.Series(arr).plot(label=label, linestyle=style)

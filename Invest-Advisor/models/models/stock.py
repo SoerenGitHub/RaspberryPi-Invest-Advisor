@@ -12,6 +12,8 @@ class Stock:
     __currentValue = 0
     __buyValue = 0
     __history = []
+    __graph_image = None
+    __analysis = None
 
     def __init__(self, name, symbol):
         self.__name = name
@@ -36,6 +38,12 @@ class Stock:
     def get_history(self):
         return self.__history
 
+    def get_graph_image(self):
+        return self.__graph_image
+
+    def get_analysis(self):
+        return self.__analysis
+
     def buy(self):
         print('buy ' + self.name + ' for ' + self.__currentValue)
         self.__buyValue = self.__currentValue
@@ -47,25 +55,23 @@ class Stock:
     def add_score(self, score):
         self.__score += score
 
-    def create_component(self, mail):
+    def create_component(self):
         graph = Graph(self.__history['Close'], 200)
-        analysis = Analysis(self.__history)
-        
-        analysis.analyse()
-        if analysis.has_analysis():
-            if analysis.get_rsline() is not None:
-                graph.draw_hline(analysis.get_rsline(), 'resistance/support')
-            if analysis.get_ema() is not None:
-                graph.draw_line(analysis.get_ema(), 'EMA')
-            if analysis.get_sma() is not None:
-                graph.draw_line(analysis.get_sma(), 'SMA')
-            if(analysis.get_psar() is not None):
-                graph.draw_line(analysis.get_psar()['bull'], 'PSAR(bull)', 'dotted')
-                graph.draw_line(analysis.get_psar()['bear'], 'PSAR(bear)', 'dotted')
+        self.__analysis = Analysis(self.__history)
+        self.__analysis.analyse()
+        if self.__analysis.has_analysis():
+            if self.__analysis.get_rsline() is not None:
+                graph.draw_hline(self.__analysis.get_rsline(), 'resistance/support')
+            if self.__analysis.get_ema() is not None:
+                graph.draw_line(self.__analysis.get_ema(), 'EMA')
+            if self.__analysis.get_sma() is not None:
+                graph.draw_line(self.__analysis.get_sma(), 'SMA')
+            if(self.__analysis.get_psar() is not None):
+                graph.draw_line(self.__analysis.get_psar()['bull'], 'PSAR(bull)', 'dotted')
+                graph.draw_line(self.__analysis.get_psar()['bear'], 'PSAR(bear)', 'dotted')
 
             today = date.today()
-            graph_img = graph.save(self.__symbol, str(today))
-            mail.addImage(graph_img, self.__symbol)
+            self.__graph_image = graph.save(self.__symbol, str(today))
             return StockComponent(self.__name, self.__symbol, 'cid:{symbol}'.format(symbol=self.__symbol))
         else:
             return None
