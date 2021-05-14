@@ -28,6 +28,9 @@ class Graph:
     def draw_hline(self, y, label):
         plt.axhline(y, label=label) 
 
+    def fill_between(self, arr: pd.Series, label):
+        plt.fill_between(x=arr.index, y1=arr.values, label= label, alpha=.1)
+
     def show(self):
         plt.show()
 

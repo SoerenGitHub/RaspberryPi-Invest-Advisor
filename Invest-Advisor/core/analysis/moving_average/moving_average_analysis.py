@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 
-class MovingAverage:
+class MovingAverageAnalysis:
 
     def __init__(self, history, trigger_zone, past_duration, current_price) -> None:
         self.__history = pd.Series(history['Close'])

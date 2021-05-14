@@ -2,7 +2,7 @@ from numpy import column_stack
 import pandas as pd
 
 
-class ParabolicSAR:
+class ParabolicSarAnalysis:
 
     def __init__(self, history, trigger_zone, af, max_af, current_price) -> None:
         self.__history = history

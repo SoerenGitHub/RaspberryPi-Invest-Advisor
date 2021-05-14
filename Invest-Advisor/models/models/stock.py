@@ -1,9 +1,10 @@
 from core.analysis.helper.simplifier import Simplifier
-from core.analysis.analysis import Analysis
+from core import Analysis
 from data import Api
 from utils import Graph
 from presentation import StockComponent
 from datetime import date
+import pandas as pd
 
 
 class Stock:
@@ -69,6 +70,8 @@ class Stock:
             if(self.__analysis.get_psar() is not None):
                 graph.draw_line(self.__analysis.get_psar()['bull'], 'PSAR(bull)', 'dotted')
                 graph.draw_line(self.__analysis.get_psar()['bear'], 'PSAR(bear)', 'dotted')
+            if(self.__analysis.get_shs() is not None):
+                graph.draw_line(self.__analysis.get_shs(), 'SHS')
 
             today = date.today()
             self.__graph_image = graph.save(self.__symbol, str(today))
