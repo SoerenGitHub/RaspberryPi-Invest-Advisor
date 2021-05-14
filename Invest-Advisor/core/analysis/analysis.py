@@ -30,8 +30,8 @@ class Analysis:
         parabolic_sar = ParabolicSarAnalysis(self.__history, 5, 0.02, 0.2, self.__history['Close'].values[-1])
         self.__psar = parabolic_sar.psar()
 
-        shoulder_head_shoulder = ShoulderHeadShoulderAnalysis(self.__history, 10, 15, self.__history['Close'].values[-1])
-        self.__shs = shoulder_head_shoulder.shs()
+        #shoulder_head_shoulder = ShoulderHeadShoulderAnalysis(self.__history, 10, 15, self.__history['Close'].values[-1])
+        #self.__shs = shoulder_head_shoulder.shs()
 
     def has_analysis(self):
         has_analysis = (
