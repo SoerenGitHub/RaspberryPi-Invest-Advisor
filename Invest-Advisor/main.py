@@ -38,6 +38,7 @@ while True:
         Stock('Aurora Cannabis', '21P1.F'),
         Stock('Bayer', 'BAYN.DE'),
         Stock('Encavis', 'ECV.DE'),    
+        Stock('Varta', 'VAR1.DE')
     ]
     
     stock_components = []
