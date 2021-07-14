@@ -4,6 +4,7 @@ from core.analysis.shoulder_head_shoulder.shoulder_head_shoulder_analysis import
 from numpy import recfromtxt
 from core.analysis.moving_average.moving_average_analysis import MovingAverageAnalysis
 from core.analysis.rsline.rsline_analysis import RSLineAnalysis
+from core.analysis.trendtunnel.trendTunnel_analysis import TrendTunnelAnalysis
 from core.analysis.helper.extrema import Extrema
 
 
@@ -14,6 +15,7 @@ class Analysis:
     __sma = None
     __psar = None
     __shs = None
+    __tt = None
 
     def __init__(self, history) -> None:
         self.__history = history
@@ -30,6 +32,9 @@ class Analysis:
         parabolic_sar = ParabolicSarAnalysis(self.__history, 5, 0.02, 0.2, self.__history['Close'].values[-1])
         self.__psar = parabolic_sar.psar()
 
+        trend_tunnel = TrendTunnelAnalysis(self.__history, 200)
+        self.__tt = trend_tunnel.trendtunnel()
+
         #shoulder_head_shoulder = ShoulderHeadShoulderAnalysis(self.__history, 10, 15, self.__history['Close'].values[-1])
         #self.__shs = shoulder_head_shoulder.shs()
 
@@ -39,7 +44,8 @@ class Analysis:
             self.__ema is not None or
             self.__sma is not None or
             self.__psar is not None or
-            self.__shs is not None
+            self.__shs is not None or
+            self.__tt is not None
         )
         return has_analysis
 
@@ -57,3 +63,6 @@ class Analysis:
 
     def get_shs(self):
         return self.__shs
+
+    def get_tt(self):
+        return self.__tt

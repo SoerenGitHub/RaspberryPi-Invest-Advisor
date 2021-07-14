@@ -72,6 +72,8 @@ class Stock:
                 graph.draw_line(self.__analysis.get_psar()['bear'], 'PSAR(bear)', 'dotted')
             #if(self.__analysis.get_shs() is not None):
              #   graph.draw_line(self.__analysis.get_shs(), 'SHS')
+            if(self.__analysis.get_tt() is not None):
+                graph .draw_line(self.__analysis.get_tt(), 'trendtunnel')
 
             today = date.today()
             self.__graph_image = graph.save(self.__symbol, str(today))
