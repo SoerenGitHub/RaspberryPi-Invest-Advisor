@@ -1,9 +1,12 @@
-from process.models.iteratoritem import IteratorItem
+from b_analysis.indicator import Indicator
+from models.iteratoritem import IteratorItem
 
 class Score:
+    __indicators: list[Indicator] = None
 
-    def __init__(self) -> None:
-        pass
+    def register(self, indicators: list):
+        self.__indicators = indicators
 
     def scoring(self, iterator_item: IteratorItem):
-        pass
+        for indicator in self.__indicators:
+            indicator.iterate_weight(iterator_item)

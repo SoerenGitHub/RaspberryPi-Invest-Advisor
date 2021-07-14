@@ -1,13 +1,15 @@
 from pandas.core.frame import DataFrame
 from pandas.core.generic import NDFrame
 from ..indicator import Indicator
-from process.models.iteratoritem import IteratorItem
-from ..models.indicatorresult import IndicatorResult
-from ..models.candlestickpattern import CandlestickPattern
+from models.iteratoritem import IteratorItem
+from models.indicatorresult import IndicatorResult
+from models.candlestickpattern import CandlestickPattern
 
 
-class Candlestick(Indicator):
+class CandlestickIndicator(Indicator):
     _name: str = 'Candlestick'
+    _weight: float = 0.5
+    _weight_sensitiv = 0.01
 
     __patterns: list[CandlestickPattern] = [
         CandlestickPattern(
@@ -110,7 +112,8 @@ class Candlestick(Indicator):
                 (True),
                  ((5, 25), (30, 60), (5, 25), True),
                 ((5, 18), (65, 80), (5, 18), False)
-            ]
+            ],
+            0.95
         )
         #HARAMI = CandlestickPattern('Harami +', True)
         #HARAMI_= CandlestickPattern('Harami -', False)
@@ -142,11 +145,10 @@ class Candlestick(Indicator):
     def __init__(self) -> None:
         super().__init__()
         
-
-    def iterate_history(self, iterator_item: IteratorItem) -> None:
+    def iterate_analyse(self, iterator_item: IteratorItem) -> None:
          if(iterator_item.get_index() > 4):
             past5days = DataFrame(iterator_item.get_all_history()[iterator_item.get_index()-5:iterator_item.get_index()])
-            iterator_item.add_indicator_result(self.candlestickPattern(past5days))
+            return self.candlestickPattern(past5days)
 
     def inPercent(self, candlestick: DataFrame, from_value: str, to_value: str) -> float:
         if((candlestick['High'] - candlestick['Low']) == 0):
@@ -157,7 +159,7 @@ class Candlestick(Indicator):
 
         return ((candlestick[from_value] - candlestick[to_value])/(candlestick['High'] - candlestick['Low']))*100
 
-    def candlestickPattern(self, past5days: DataFrame):
+    def candlestickPattern(self, past5days: DataFrame) -> IndicatorResult:
         self.__patterns.sort(key=lambda x: x.getWeight(), reverse=True)
         for pattern in self.__patterns:
             for dayIndex, (date, candlestick) in enumerate(past5days.iterrows()):
@@ -212,5 +214,5 @@ class Candlestick(Indicator):
                         break
 
                 if(dayIndex == 4):
-                    return IndicatorResult(self._name, (self._score/100)*pattern.getWeight(), pattern.getName(), pattern.isBull())
+                    return IndicatorResult(self._name, pattern.getWeight(), pattern.getName(), pattern.isBull())
         return None

@@ -1,8 +1,8 @@
-from DailyInvestAdvisor.c_scoring.score import Score
-from process.models.iteratoritem import IteratorItem
-from pandas.core import series
+from b_analysis.indicators.candlestickindicator import CandlestickIndicator
+from c_scoring.score import Score
+from models.iteratoritem import IteratorItem
 from pandas.core.frame import DataFrame
-from b_analysis.indicators.candlestick import Candlestick
+from pandas.core.frame import Series
 from b_analysis.indicators.psar import PSAR
 from b_analysis.analysis import Analysis
 import threading
@@ -17,7 +17,7 @@ class Process(threading.Thread):
     def __init__(self, stock: Stock):
         threading.Thread.__init__(self)
         self.__stock = stock
-        self.__analysis = Analysis(self.__stock)
+        self.__analysis = Analysis()
         self.__score = Score()
 
     def run(self):
@@ -25,10 +25,15 @@ class Process(threading.Thread):
 
         self.__analysis.register([
             #PSAR(5, 0.02, 0.2),
-            Candlestick()
+            CandlestickIndicator()
         ])
 
-        history: series = self.__stock.get_history()
+        self.__score.register([
+            #PSAR(5, 0.02, 0.2),
+            CandlestickIndicator()
+        ])
+
+        history: Series = self.__stock.get_history()
         index: int = -1
 
         for date, data in DataFrame(history).sort_index(ascending=True).iterrows():

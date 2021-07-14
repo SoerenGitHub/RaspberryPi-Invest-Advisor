@@ -1,4 +1,4 @@
-from b_analysis.models.indicatorresult import IndicatorResult
+from models.indicatorresult import IndicatorResult
 from datetime import datetime
 
 from pandas.core.series import Series

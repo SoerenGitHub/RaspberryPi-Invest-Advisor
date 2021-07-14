@@ -3,13 +3,13 @@ from typing import Any
 
 class IndicatorResult(object):
     __indicatorName: str = None
-    __score: float = None
+    __weight: float = None
     __value: Any = None
     __bull: bool = None
 
-    def __init__(self, name, score, value, bull) -> None:
+    def __init__(self, name, weight, value, bull) -> None:
         self.__indicatorName = name
-        self.__score = score
+        self.__weight = weight
         self.__value = value
         self.__bull = bull
         super().__init__()
@@ -21,7 +21,7 @@ class IndicatorResult(object):
     def getIndicatorName(self):
         return self.__indicatorName
 
-    def getScore(self):
+    def getWeight(self):
         return self.__weight
 
     def getValue(self):

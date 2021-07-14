@@ -1,12 +1,11 @@
+from models.iteratoritem import IteratorItem
 from pandas.core.frame import DataFrame
 from b_analysis.analysis import Analysis
-from b_analysis.models.iteratoritem import IteratorItem
 from pandas.core.series import Series
 from ..indicator import Indicator
 
 class PSAR(Indicator):
     _name: str = 'PSAR'
-    _score: int = 3
 
     __af: float = None
     __max_af: float = None
