@@ -18,13 +18,29 @@ class Indicator(object):
             for result in iterator_item.get_indicator_result():
                 if( result and result.getIndicatorName() == self._name):
                     if(
-                        iterator_item.get_all_close_prices()[iterator_item.get_index()+1] > iterator_item.get_close_price()
-                        and (self._weight + (self._weight*self._weight_sensitiv)) < 1
+                        (
+                            result.isBull()
+                            and iterator_item.get_all_close_prices()[iterator_item.get_index()+1] > iterator_item.get_close_price()
+                            and (self._weight + (self._weight*self._weight_sensitiv)) < 1
+                        )
+                        or (
+                            not result.isBull()
+                            and iterator_item.get_all_close_prices()[iterator_item.get_index()+1] < iterator_item.get_close_price()
+                            and (self._weight + (self._weight*self._weight_sensitiv)) < 1
+                        )
                     ):
                         self._weight = self._weight + (self._weight*self._weight_sensitiv)
                     elif(
-                        iterator_item.get_all_close_prices()[iterator_item.get_index()+1] < iterator_item.get_close_price()
-                        and (self._weight - (self._weight*self._weight_sensitiv)) > 0
+                        (
+                            result.isBull()
+                            and iterator_item.get_all_close_prices()[iterator_item.get_index()+1] < iterator_item.get_close_price()
+                            and (self._weight - (self._weight*self._weight_sensitiv)) > 0
+                        )
+                        or (
+                            not result.isBull()
+                            and iterator_item.get_all_close_prices()[iterator_item.get_index()+1] > iterator_item.get_close_price()
+                            and (self._weight - (self._weight*self._weight_sensitiv)) > 0
+                        )
                     ):
                         self._weight = self._weight - (self._weight*self._weight_sensitiv)
                     
